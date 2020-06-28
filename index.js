@@ -8,11 +8,12 @@ const productCategoryRouter = require('./routes/productCategory');
 const cartRouter = require('./routes/cart');
 const feedbackRouter = require('./routes/feedback');
 const orderRouter = require('./routes/order');
+const uploadRouter = require('./routes/uploads');
 
 const dotenv = require('dotenv').config();
 const cors = require('cors');
 const auth = require('./auth');
-const uploadRouter = require('./routes/upload');
+
 
 const app = express();
 app.options('*', cors());
@@ -34,6 +35,7 @@ mongoose.connect(process.env.URL, {
 
 
 app.use('/users', userRouter);
+app.use('/uploads', uploadRouter);
 app.use('/products', productRouter);
 app.use('/productCategories', productCategoryRouter);
 app.use('/cart', cartRouter);
