@@ -69,4 +69,49 @@ router.route("/:id")
             })
             .catch(next);
     })
+
+
+//SEARCH PRODUCT WITH TITLE
+router.route("/search/:tid")
+    .get((req, res, next) => {
+        Product.find({ product_title: req.params.tid })
+            .then(product => {
+                if (product == null) throw new Error("No product found.");
+                res.json(product);
+            })
+            .catch(next);
+    })
+
+//SEARCH PRODUCT WITH TITLE
+router.route("/search/:sid")
+    .get((req, res, next) => {
+        Product.find({ product_title: req.params.sid })
+            .then(product => {
+                if (product == null) throw new Error("No product found.");
+                res.json(product);
+            })
+            .catch(next);
+    })
+
+//FILTER PRODUCT WITH GENDER
+router.route("/fiteredProductWithGender/:gender")
+    .get((req, res, next) => {
+        Product.find({ product_title: req.params.gender })
+            .then(product => {
+                if (product == null) throw new Error("No product found.");
+                res.json(product);
+            })
+            .catch(next);
+    })
+//FILTER PRODUCT WITH CATEGORY
+router.route("/fiteredProductWithCategory/:category")
+    .get((req, res, next) => {
+        Product.find({ product_category: req.params.category })
+            .then(product => {
+                if (product == null) throw new Error("No product found.");
+                res.json(product);
+            })
+            .catch(next);
+    })
+
 module.exports = router;

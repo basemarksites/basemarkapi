@@ -10,11 +10,18 @@ const productSchema = new mongoose.Schema({
     product_category: {
         type: String
     },
+    //Gender for filtering
+    product_gender: {
+        type: String
+    },
     product_size: [{
         type: String
     }],
     description: {
         type: String
+    },
+    stock: {
+        type: Number
     },
     price: {
         type: Number

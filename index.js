@@ -9,6 +9,7 @@ const cartRouter = require('./routes/cart');
 const feedbackRouter = require('./routes/feedback');
 const orderRouter = require('./routes/order');
 
+
 const dotenv = require('dotenv').config();
 const cors = require('cors');
 const auth = require('./auth');
@@ -34,6 +35,7 @@ mongoose.connect(process.env.URL, {
 
 
 app.use('/users', userRouter);
+app.use('/upload', uploadRouter);
 app.use('/products', productRouter);
 app.use('/productCategories', productCategoryRouter);
 app.use('/cart', cartRouter);
