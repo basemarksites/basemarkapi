@@ -96,7 +96,7 @@ router.route("/search/:sid")
 //FILTER PRODUCT WITH GENDER
 router.route("/fiteredProductWithGender/:gender")
     .get((req, res, next) => {
-        Product.find({ product_title: req.params.gender })
+        Product.find({ product_gender: req.params.gender })
             .then(product => {
                 if (product == null) throw new Error("No product found.");
                 res.json(product);
