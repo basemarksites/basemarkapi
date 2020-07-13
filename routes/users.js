@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/users');
 const auth = require('../auth');
+ const nodemailer = require('nodemailer');
 
 const router = express.Router();
 
@@ -48,7 +49,7 @@ router.post('/login', (req, res, next) => {
                             return next(err);
                         }
                         let token = jwt.sign({ _id: user._id }, process.env.SECRET);
-                        res.json({ status: 'Login Successful!', token: token });
+                        res.json({ status: 'Login Successful!', token: token, role:user.role });
                         //console.log("Login Successful!");
                     }).catch(next);
             }
@@ -73,4 +74,43 @@ router.put('/myProfile', auth.verifyUser, (req, res, next) => {
 
         }).catch(next);
 });
+
+//Customer reset password
+
+router.get('/resetpassword', (req, res, next)=>{
+
+    User.findOne({ email : req.body.email})
+    .then((user)=>{
+        if(!user){
+            let err = new Error('Email not found');
+            err.status = 401;
+            return next(err);
+
+        }
+        let token = jwt.sign({ _id: user._id }, process.env.SECRET)
+        User.findByIdAndUpdate({ _id: user._id }, { resetpasswordToken: token}, { upsert: true, new: true })
+        .then((user)=>{
+            res.json(user)
+        })
+      
+    })
+})
+
+
+        
+
+    
+
+
+ router.put('/resetpassword', (req, res, next)=>{
+    User.findByIdAndUpdate({ _id: user._id},{resetpasswordToken: token }, { $set: req.body }, { new: true })
+    .then((user)=>{
+        res.json(user);
+   
+    }).catch(next);
+});
+
+
+
+
 module.exports = router;

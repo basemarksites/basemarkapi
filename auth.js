@@ -9,7 +9,7 @@ module.exports.verifyUser = (req, res, next) => {
         return next(err);
     }
     let token = authHeader.split(' ')[1];
-    let data;
+     let data;
     try {
         data = jwt.verify(token, process.env.SECRET);
     } catch (err) {
@@ -20,8 +20,8 @@ module.exports.verifyUser = (req, res, next) => {
             req.user = user;
             next();
         })
-}
-
+};
+/* admin  */
 module.exports.verifyAdmin = (req, res, next) => {
     if (!req.user) {
         let err = new Error('Unauthorized');
@@ -34,4 +34,18 @@ module.exports.verifyAdmin = (req, res, next) => {
         return next(err);
     }
     next();
-}
+
+};
+module.exports.verifyLogout = ((req,res,next) =>{
+    let token = authHeader.split(' ')[1];
+    let data;
+    try {
+        data = jwt.destroy(token);
+    } catch (err) {
+        throw new Error('Token could not be verified!');
+    }
+     return next(err);
+})
+
+/* reset password */
+

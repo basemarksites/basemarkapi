@@ -35,7 +35,9 @@ mongoose.connect(process.env.URL, {
 
 
 app.use('/users', userRouter);
+
 app.use('/upload', uploadRouter);
+app.use(auth.verifyUser);
 app.use('/products', productRouter);
 app.use('/productCategories', productCategoryRouter);
 app.use('/cart', cartRouter);
