@@ -15,6 +15,9 @@ const orderSchema = new mongoose.Schema({
     totalPrice: {
         type: Number
     },
+    phone: {
+        type: String
+    },
     destination: {
         type: String
     },
@@ -25,7 +28,8 @@ const orderSchema = new mongoose.Schema({
         type: String
     },
     status: {
-        type: String
+        type: String,
+        default: 'Not Delivered',
     }
 }, { timestamps: true })
 

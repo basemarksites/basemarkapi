@@ -8,6 +8,7 @@ const productCategoryRouter = require('./routes/productCategory');
 const cartRouter = require('./routes/cart');
 const feedbackRouter = require('./routes/feedback');
 const orderRouter = require('./routes/order');
+const newItemsRouter = require('./routes/newItems');
 
 
 const dotenv = require('dotenv').config();
@@ -41,6 +42,7 @@ app.use('/productCategories', productCategoryRouter);
 app.use('/cart', cartRouter);
 app.use('/feedbacks', feedbackRouter);
 app.use('/orders', orderRouter);
+app.use('/newItems', newItemsRouter);
 
 
 app.use((err, req, res, next) => {
