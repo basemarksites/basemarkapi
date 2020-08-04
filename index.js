@@ -9,12 +9,14 @@ const cartRouter = require('./routes/cart');
 const feedbackRouter = require('./routes/feedback');
 const orderRouter = require('./routes/order');
 const newItemsRouter = require('./routes/newItems');
+const hotSalesRouter = require('./routes/hotSales');
 
 
 const dotenv = require('dotenv').config();
 const cors = require('cors');
 const auth = require('./auth');
 const uploadRouter = require('./routes/upload');
+const hotSales = require("./models/hotSales");
 
 const app = express();
 app.options('*', cors());
@@ -43,6 +45,7 @@ app.use('/cart', cartRouter);
 app.use('/feedbacks', feedbackRouter);
 app.use('/orders', orderRouter);
 app.use('/newItems', newItemsRouter);
+app.use('/hotSales', hotSalesRouter);
 
 
 app.use((err, req, res, next) => {

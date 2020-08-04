@@ -37,6 +37,17 @@ router.route("/")
             })
             .catch(next);
     })
+router.route('/:pfid')
+    .get((req, res, next) => {
+        Feedback.find({ product: req.params.pfid })
+            .populate({
+                path: 'customer'
+            })
+            .then((feedback) => {
+                if (feedback == null) throw new Error("Feedback seems to be removed.");
+                res.json(feedback);
+            }).catch(next)
+    })
 
 //ROUTES FOR OPERATING SPECIFIC Feedbacks
 router.route('/:fid')
