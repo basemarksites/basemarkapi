@@ -38,54 +38,10 @@ router.route("/")
             .catch(next);
     });
 
-
-//ADMIN ORDER OPERATIONS
-router.route("/:oid")
-    .get((req, res, next) => {
-        Order.findOne({ _id: req.params.oid })
-            .populate({
-                path: 'product'
-            })
-            .then(order => {
-                if (order == null) throw new Error("Property has been removed.");
-                res.json(order);
-            })
-            .catch(next);
-    })
-    .post(auth.verifyUser, (req, res, next) => {
-        res.statusCode = 405;
-        res.json({ message: "Method not allowed." });
-    })
-    .put((req, res, next) => {
-        Order.findOneAndUpdate(
-            { _id: req.params.oid },
-            { $set: req.body },
-            { new: true }
-        )
-            .populate({
-                path: 'product'
-            })
-            .then(reply => {
-                if (reply == null) throw new Error("Sorry, order update failed.");
-                res.json(reply);
-            })
-            .catch(next);
-    })
-    .delete((req, res, next) => {
-        Order.findOneAndDelete({ _id: req.params.oid })
-            .then(response => {
-                res.json(response);
-            })
-            .catch(next);
-    })
-
-
 //CUSTOMERS'S INDIVIDUAL ORDERS
-router.route("/myOrders")
+router.route('/myOrders')
     .get(auth.verifyUser, (req, res, next) => {
-        Order.find({
-            customer: req.user._id
-        })
+        Order.find({ customer: req.user._id })
             .populate({
                 path: "product"
             })
@@ -159,4 +115,46 @@ router.route("/myOrders/:oid")
             })
             .catch(next);
     })
+
+//ADMIN ORDER OPERATIONS
+router.route("/:oid")
+    .get((req, res, next) => {
+        Order.findOne({ _id: req.params.oid })
+            .populate({
+                path: 'product'
+            })
+            .then(order => {
+                if (order == null) throw new Error("Property has been removed.");
+                res.json(order);
+            })
+            .catch(next);
+    })
+    .post(auth.verifyUser, (req, res, next) => {
+        res.statusCode = 405;
+        res.json({ message: "Method not allowed." });
+    })
+    .put((req, res, next) => {
+        Order.findOneAndUpdate(
+            { _id: req.params.oid },
+            { $set: req.body },
+            { new: true }
+        )
+            .populate({
+                path: 'product'
+            })
+            .then(reply => {
+                if (reply == null) throw new Error("Sorry, order update failed.");
+                res.json(reply);
+            })
+            .catch(next);
+    })
+    .delete((req, res, next) => {
+        Order.findOneAndDelete({ _id: req.params.oid })
+            .then(response => {
+                res.json(response);
+            })
+            .catch(next);
+    })
+
+
 module.exports = router;

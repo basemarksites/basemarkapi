@@ -35,14 +35,14 @@ mongoose.connect(process.env.URL, {
 
 
 app.use('/users', userRouter);
+app.use('/orders', orderRouter);
 
 app.use('/upload', uploadRouter);
-app.use(auth.verifyUser);
 app.use('/products', productRouter);
 app.use('/productCategories', productCategoryRouter);
 app.use('/cart', cartRouter);
 app.use('/feedbacks', feedbackRouter);
-app.use('/orders', orderRouter);
+
 
 
 app.use((err, req, res, next) => {

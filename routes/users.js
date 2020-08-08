@@ -25,7 +25,7 @@ router.post('/signup', (req, res, next) => {
 
         }).then((user) => {
             let token = jwt.sign({ _id: user._id }, process.env.SECRET);
-            res.json({ status: "Signup Successful!", token: token });
+            res.json({ status: "Signup Successful!", token: token, role:user.role });
 
         }).catch(next);
     });
